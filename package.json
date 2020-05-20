@@ -1,5 +1,5 @@
 {
-  "name": "bindings",
+  "name": "bindings-noderify-nodejs-mobile",
   "description": "Helper module for loading your native module's .node file",
   "keywords": [
     "native",
