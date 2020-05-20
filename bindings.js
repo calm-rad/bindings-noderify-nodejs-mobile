@@ -35,26 +35,26 @@ var fs = require('fs'),
     bindings: 'bindings.node',
     try: [
       // node-gyp's linked version in the "build" dir
-      ['module_root', 'build', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'build', 'bindings'],
       // node-waf and gyp_addon (a.k.a node-gyp)
-      ['module_root', 'build', 'Debug', 'bindings'],
-      ['module_root', 'build', 'Release', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'build', 'Debug', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'build', 'Release', 'bindings'],
       // Debug files, for development (legacy behavior, remove for node v0.9)
-      ['module_root', 'out', 'Debug', 'bindings'],
-      ['module_root', 'Debug', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'out', 'Debug', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'Debug', 'bindings'],
       // Release files, but manually compiled (legacy behavior, remove for node v0.9)
-      ['module_root', 'out', 'Release', 'bindings'],
-      ['module_root', 'Release', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'out', 'Release', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'Release', 'bindings'],
       // Legacy from node-waf, node <= 0.4.x
-      ['module_root', 'build', 'default', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'build', 'default', 'bindings'],
       // Production "Release" buildtype binary (meh...)
-      ['module_root', 'compiled', 'version', 'platform', 'arch', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'compiled', 'version', 'platform', 'arch', 'bindings'],
       // node-qbs builds
-      ['module_root', 'addon-build', 'release', 'install-root', 'bindings'],
-      ['module_root', 'addon-build', 'debug', 'install-root', 'bindings'],
-      ['module_root', 'addon-build', 'default', 'install-root', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'addon-build', 'release', 'install-root', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'addon-build', 'debug', 'install-root', 'bindings'],
+      ['module_root', 'node_modules', 'name', 'addon-build', 'default', 'install-root', 'bindings'],
       // node-pre-gyp path ./lib/binding/{node_abi}-{platform}-{arch}
-      ['module_root', 'lib', 'binding', 'nodePreGyp', 'bindings']
+      ['module_root', 'node_modules', 'name', 'lib', 'binding', 'nodePreGyp', 'bindings']
     ]
   };
 
@@ -84,6 +84,7 @@ function bindings(opts) {
 
   // Ensure the given bindings name ends with .node
   if (path.extname(opts.bindings) != '.node') {
+    opts.name = opts.bindings;
     opts.bindings += '.node';
   }
 
